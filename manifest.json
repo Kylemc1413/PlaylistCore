@@ -1,0 +1,11 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/nike4613/ModSaber-MetadataFileSchema/master/Schema.json",
+  "author": "Kyle1413",
+  "description": "A plugin for Handling Custom Playlists in Beat Saber",
+  "gameVersion": "1.1.0",
+  "id": "PlaylistCore",
+  "name": "PlaylistCore",
+  "version": "0.0.1",
+  "features": [
+  ]
+} 
