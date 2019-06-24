@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Playlist.cs" />
+    <Compile Include="PlaylistLevelPackManagement.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Logging.cs" />
@@ -102,6 +103,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="manifest.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\DeleteIcon.png" />
+    <EmbeddedResource Include="Assets\DownloadIcon.png" />
+    <EmbeddedResource Include="Assets\PlaylistIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

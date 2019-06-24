@@ -41,7 +41,7 @@ namespace PlaylistCore.Data
                         }
                         catch (Exception e)
                         {
-                            Logging.Log.Info($"Unable to parse playlist @ {path}! Exception: {e}");
+                            Logging.Log.Warn($"Unable to parse playlist @ {path}! Exception: {e}");
                         }
                     }
                 }
@@ -80,8 +80,11 @@ namespace PlaylistCore.Data
 
         public static void MatchSongsForPlaylist(Playlist playlist, bool matchAll = false)
         {
-            if (!SongCore.Loader.AreSongsLoaded || SongCore.Loader.AreSongsLoading) return;
-
+            if (!SongCore.Loader.AreSongsLoaded || SongCore.Loader.AreSongsLoading)
+            {
+                Logging.Log.Info("Songs not loaded. Not Matching songs for playlist.");
+                return;
+            }
             if (!playlist.songs.All(x => x.level != null) || matchAll)
             {
                 playlist.songs.AsParallel().ForAll(x =>
@@ -90,10 +93,7 @@ namespace PlaylistCore.Data
                     {
                         try
                         {
-                            if (!string.IsNullOrEmpty(x.levelId)) 
-                            {
-                                x.level = SongCore.Loader.CustomLevels.Values.FirstOrDefault(y => y.levelID == x.levelId);
-                            }
+                      //      Logging.Log.Info("Trying to match " + x.hash + " with " + SongCore.Loader.CustomLevels.Values.Count + " songs");
                             if (x.level == null && !string.IsNullOrEmpty(x.hash)) 
                             {
                                 x.level = SongCore.Loader.CustomLevels.Values.FirstOrDefault(y => string.Equals(y.levelID.Split('_')[2], x.hash, StringComparison.OrdinalIgnoreCase));
@@ -120,7 +120,7 @@ namespace PlaylistCore.Data
                     MatchSongsForPlaylist(loadedPlaylists[i], matchAll);
                 }
                 //Update LevelPacks
-
+//                Plugin.DebugLogPlaylists();
             });
         }
 
@@ -200,23 +200,25 @@ namespace PlaylistCore.Data
             if (playlistNode.ContainsKey("customArchiveUrl"))
                 customArchiveUrl = (string)playlistNode["customArchiveUrl"];
 
-            songs = new List<PlaylistSong>();
-            foreach (var song in playlistNode["Songs"])
+            this.songs = new List<PlaylistSong>();
+
+            JArray songs = (JArray)playlistNode["songs"];
+            foreach (JObject song in songs)
             {
                 PlaylistSong newSong = new PlaylistSong();
-                if (playlistNode.ContainsKey("key"))
+                if (song.ContainsKey("key"))
                     newSong.key = (string)song["key"];
-                if (playlistNode.ContainsKey("songName"))
+                if (song.ContainsKey("songName"))
                     newSong.songName = (string)song["songName"];
-                if (playlistNode.ContainsKey("hash"))
+                if (song.ContainsKey("hash"))
                     newSong.hash = (string)song["hash"];
-                if (playlistNode.ContainsKey("levelId"))
+                if (song.ContainsKey("levelId"))
                     newSong.levelId = (string)song["levelId"];
 
-                songs.Add(newSong);
+                this.songs.Add(newSong);
             }
 
-            playlistSongCount = songs.Count;
+            playlistSongCount = this.songs.Count;
 
             if (playlistNode.ContainsKey("fileLoc"))
                 fileLoc = (string)playlistNode["fileLoc"];

@@ -9,7 +9,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using IPA;
 using IPALogger = IPA.Logging.Logger;
-
+using PlaylistCore.Data;
+using PlaylistCore.Utilities;
 namespace PlaylistCore
 {
     public class Plugin : IBeatSaberPlugin
@@ -18,7 +19,15 @@ namespace PlaylistCore
 
         public void OnApplicationStart()
         {
+            Sprites.ConvertToSprites();
+            PlaylistsCollection.ReloadPlaylists();
+            SongCore.Loader.SongsLoadedEvent += Loader_SongsLoadedEvent;
+        }
 
+        private void Loader_SongsLoadedEvent(SongCore.Loader arg1, Dictionary<string, CustomPreviewBeatmapLevel> arg2)
+        {
+            PlaylistsCollection.MatchSongsForAllPlaylists();
+         //   DebugLogPlaylists();
 
         }
 
@@ -58,5 +67,19 @@ namespace PlaylistCore
 
         }
 
+        public static void DebugLogPlaylists()
+        {
+            foreach(var playlist in PlaylistsCollection.loadedPlaylists)
+            {
+                Logging.Log.Notice(playlist.playlistTitle + " - " + playlist.playlistAuthor);
+
+                foreach(var c in playlist.songs)
+                {
+                    Logging.Log.Warn(c.songName + c.hash);
+                    if(c.level != null)
+                        Logging.Log.Notice(c.level.customLevelPath);
+                }
+            }
+        }
     }
 }

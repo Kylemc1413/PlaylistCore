@@ -35,7 +35,7 @@ namespace PlaylistCore.Utilities
 
         public static void ConvertToSprites()
         {
-            Logging.Log.Info("Creating sprites...");
+  //          Logging.Log.Info("Creating sprites...");
 
    //         AddToFavorites = CustomUI.Utilities.UIUtilities.LoadSpriteFromResources("BeatSaverDownloader.Assets.AddToFavorites.png");
    //         RemoveFromFavorites = CustomUI.Utilities.UIUtilities.LoadSpriteFromResources("BeatSaverDownloader.Assets.RemoveFromFavorites.png");
@@ -45,15 +45,15 @@ namespace PlaylistCore.Utilities
    //         ReviewIcon = CustomUI.Utilities.UIUtilities.LoadSpriteFromResources("BeatSaverDownloader.Assets.ReviewIcon.png");
    //         ThumbUp = CustomUI.Utilities.UIUtilities.LoadSpriteFromResources("BeatSaverDownloader.Assets.ThumbUp.png");
    //         ThumbDown = CustomUI.Utilities.UIUtilities.LoadSpriteFromResources("BeatSaverDownloader.Assets.ThumbDown.png");
-            PlaylistIcon = CustomUI.Utilities.UIUtilities.LoadSpriteFromResources("BeatSaverDownloader.Assets.PlaylistIcon.png");
+            PlaylistIcon = CustomUI.Utilities.UIUtilities.LoadSpriteFromResources("PlaylistCore.Assets.PlaylistIcon.png");
    //         SongIcon = CustomUI.Utilities.UIUtilities.LoadSpriteFromResources("BeatSaverDownloader.Assets.SongIcon.png");
-            DownloadIcon = CustomUI.Utilities.UIUtilities.LoadSpriteFromResources("BeatSaverDownloader.Assets.DownloadIcon.png");
+            DownloadIcon = CustomUI.Utilities.UIUtilities.LoadSpriteFromResources("PlaylistCore.Assets.DownloadIcon.png");
    //         PlayIcon = CustomUI.Utilities.UIUtilities.LoadSpriteFromResources("BeatSaverDownloader.Assets.PlayIcon.png");
    //         DoubleArrow = CustomUI.Utilities.UIUtilities.LoadSpriteFromResources("BeatSaverDownloader.Assets.DoubleArrow.png");
    //         RandomIcon = CustomUI.Utilities.UIUtilities.LoadSpriteFromResources("BeatSaverDownloader.Assets.RandomIcon.png");
-            DeleteIcon = CustomUI.Utilities.UIUtilities.LoadSpriteFromResources("BeatSaverDownloader.Assets.DeleteIcon.png");
+            DeleteIcon = CustomUI.Utilities.UIUtilities.LoadSpriteFromResources("PlaylistCore.Assets.DeleteIcon.png");
 
-            Logging.Log.Info("Creating sprites...");
+ //           Logging.Log.Info("Creating sprites...");
         }
 
         public static string SpriteToBase64(Sprite input)
