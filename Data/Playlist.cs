@@ -16,6 +16,10 @@ namespace PlaylistCore.Data
     {
         public static List<Playlist> loadedPlaylists = new List<Playlist>();
 
+        public static SongCore.OverrideClasses.SongCoreCustomBeatmapLevelPack CreateLevelPackFromPlaylist(Playlist playlist)
+        {
+            return new SongCore.OverrideClasses.SongCoreCustomBeatmapLevelPack($"{CustomLevelLoaderSO.kCustomLevelPackPrefixId}Playlist_{playlist.playlistTitle}_{playlist.playlistAuthor}", "Playlist - " + playlist.playlistTitle, playlist.icon, new SongCore.OverrideClasses.SongCoreCustomLevelCollection(playlist.songs.Where(x => x.level != null).Select(x => x.level).ToArray()));
+        }
         public static void ReloadPlaylists(bool fullRefresh = true)
         {
             try
@@ -120,7 +124,8 @@ namespace PlaylistCore.Data
                     MatchSongsForPlaylist(loadedPlaylists[i], matchAll);
                 }
                 //Update LevelPacks
-//                Plugin.DebugLogPlaylists();
+                PlaylistLevelPackManagement.SetPlaylistPacks();
+                //                Plugin.DebugLogPlaylists();
             });
         }
 
@@ -134,7 +139,7 @@ namespace PlaylistCore.Data
             }
                 playlist.SavePlaylist();
             //Update Playlist Pack
-  
+
         }
         public static void AddLevelToPlaylist(Playlist playlist, CustomPreviewBeatmapLevel level)
         {

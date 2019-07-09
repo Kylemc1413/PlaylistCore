@@ -22,6 +22,7 @@ namespace PlaylistCore
             Sprites.ConvertToSprites();
             PlaylistsCollection.ReloadPlaylists();
             SongCore.Loader.SongsLoadedEvent += Loader_SongsLoadedEvent;
+          //  SongCore.Loader.OnLevelPacksRefreshed += ;
         }
 
         private void Loader_SongsLoadedEvent(SongCore.Loader arg1, Dictionary<string, CustomPreviewBeatmapLevel> arg2)
